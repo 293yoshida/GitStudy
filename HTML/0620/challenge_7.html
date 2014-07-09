@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript">
+		
+
+		/* 結果表示用DivタグにPタグを挿入
+		 * resultArray: 連想配列 key=inputのid名(今回はテキストボックス), value=出力したい値
+		 */
+		function htmlAppend(resultArray){
+			try{    
+				for (var keyStr in resultArray) {
+					/* 戻り値がエラーでないか確認 */
+					var err_check = new RegExp("Error", "i");
+					if(err_check.test(resultArray[keyStr])){
+						alert(resultArray[keyStr]);
+	    				continue;
+					}
+				
+	    			var param =  resultArray[keyStr].split("]");
+
+					var positionTop  = $("#" + keyStr).css("top");
+					var positionLeft = parseInt($("#" + keyStr).css("left")) + parseInt($("#" + keyStr).css("width"));
+
+					var strMargin = 0;
+
+	    			for(var num=0; num<param.length-1; num++){//>
+						
+						var resultTag = $("<p />").text(param[num] + "]");
+						var re = new RegExp("TRUE", "i");
+						if(re.test(param[num])){
+	    					resultTag.attr("class","resultColorGreen");
+	    				}else{
+	    					resultTag.attr("class","resultColorRed");
+	    				}
+						
+						resultTag.css("display", "inline");
+						resultTag.css("position" , $("#" + keyStr).css("position"));
+						resultTag.css("top" , positionTop);
+						resultTag.css("left", parseInt(strMargin) + parseInt(positionLeft));
+				
+						$( "#" + keyStr ).after( resultTag );
+						/* 文字を横ならびにするため */
+						strMargin += parseInt(resultTag.css("width"));		
+					}
+	　　		}
+			}catch(em){
+				alert(em);
+			}
+		}
+		
+		$(document).ready(function(){
+			jQuery('#button_1').click(function(){
+				
+				var arrayInputTag = $("input[type='text'][checks]");  //テキストボックスのDOMを取得
+
+				var result = new Object(); //結果格納用
+				result = checksValue(arrayInputTag);
+				htmlAppend(result); //結果の表示
+				
+			});
+		});
+
+		/* checks属性の確認用 
+		 * checksElement : 
+		*/
+		function checksValue(checksElement){
+			
+			var elementNum = $(checksElement).length;  //要素数の取得
+			var resultArray = new Object(); //結果格納用連想配列
+
+			for(var e=0; e<elementNum; e++){//>
+    			
+				try{
+					/* idの確認 */
+					if($(checksElement[e]).attr('id') != ""){
+						var inputID   = $(checksElement[e]).attr('id'); //自身のid
+						resultArray[inputID] = ""; //中身にundefinedが入るので初期化
+					}else{alert("No found input id");}
+					
+					/* checks属性の確認 */
+					if($(checksElement[e]).attr('checks') != ""){
+						var terms     =  $(checksElement[e]).attr('checks').split(";"); //checks属性の分割[;]
+					}else{
+						resultArray[inputID] = "[Error;" + inputID + ": No Checks Value.]";
+    					continue;
+					}
+
+					/* 入力されたValue値の確認 */
+					var textValue = $(checksElement[e]).val(); //テキストに入力された値
+					if(textValue == ""){
+    					resultArray[inputID] = "[Error;" + inputID + ": No Value.]";
+						continue;
+					}
+	
+					/* checks内の要素分ループ */
+					for(var i=0; i<terms.length; i++){//>
+						var param = terms[i].split(":");
+		    				switch(param[0]){
+							case "max":
+								if(parseInt( textValue ) <= parseInt(param[1])){//>
+    								resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:TRUE]";
+								}else{
+    								resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:FALSE]";
+								}
+								break;
+
+							case "min":
+								if(parseInt( textValue ) >= parseInt(param[1])){
+									resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:TRUE]";
+								}else{
+									resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:FALSE]";
+		 						}
+								break;
+
+							case "alphaNumeric":
+								var reg = new RegExp("[^0-9A-Za-z]+");
+		    					if(textValue.match(reg) == null){
+    								resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:TRUE]";
+								}else{
+    								resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:FALSE]";
+								}
+								break;
+					
+							case "betweenLength":
+								var range = param[1].split(",");
+								var paramMin = range[0];
+								var paramMax = range[1];
+
+								if((parseInt(textValue) >= parseInt(paramMin)) && (parseInt(textValue) <= parseInt(paramMax))){//>
+    								resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:TRUE]";
+								}else{
+    								resultArray[inputID] += "[" + String(terms[i]) + "; Value:" + textValue + "; Result:FALSE]";
+								}		 					
+								break;
+
+							default:
+								resultArray[inputID] += "[Error;No match checks parameter" + "; Result:ERROR]";
+								break;
+
+						}//end switch
+					}
+				}catch( e ){
+					alert(e);
+				}
+			}
+			return resultArray;
+		}
+
+	</script>
+
+	<style type="text/css">
+		body,html{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #FFF;
+		}
+		.inputStyle1{
+    		position:absolute;
+    		top:10px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+		.inputStyle2{
+    		position:absolute;
+    		top:40px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle3{
+    		position:absolute;
+    		top:70px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle4{
+    		position:absolute;
+    		top:100px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.textStyle{
+			/* border:solid 1px green; */
+    		position:absolute;
+    		top:0;
+    		left:40;
+    		margin:0;
+    		padding:0;
+    		width:100%;
+    		height:500px;
+		}
+
+		.textStyleLeft{
+			/* border:solid 1px red; */
+    		position:absolute;
+    		top:0;
+    		left:0;
+    		/*width:700px;*/
+			width:100%;
+    		height:100%;
+		}
+		.textStyleRight{
+			/* border:solid 1px blue; */
+    		position:absolute;
+    		top:0;
+    		left:200px;
+    		right:5px;
+    		height:100%;
+		}
+
+		.bottunStyle{
+    		position:absolute;
+    		top:200px;
+    		left:20px;
+    		width:200px;
+		}
+
+		.resultTag{
+    		margin-top:0;
+		}
+
+		.resultColorRed{
+    		color:red;
+    		margin-left:30px;
+    		margin-top:0;
+    		display:inline;
+		}
+
+		.resultColorGreen{
+    		color:green;
+    		margin-left:30px;
+    		margin-top:0;
+    		display:inline;
+		}
+
+	</style>
+
+<body>
+
+	<div id="#container">
+		<div class="textStyle">
+			<div class="textStyleLeft">
+				<input type="text" id="textBox1" value="1" checks="min:10;max:100" class="inputStyle1" >
+				<input type="text" id="textBox2" value="2" checks="alphaNumeric;betweenLength:5,5"  class="inputStyle2" >
+				<input type="text" id="textBox3" value="3" checks="alphaNumeric;betweenLength:5,10" class="inputStyle3" >
+				<input type="text" id="textBox4" value="4" checks="min:30;max:200;alphaNumeric" class="inputStyle4" >
+			</div>
+			<div class="textStyleRight">
+				<div id="inputMsg1" class="inputStyle1 resultTag"></div>
+				<div id="inputMsg2" class="inputStyle2 resultTag"></div>
+				<div id="inputMsg3" class="inputStyle3 resultTag"></div>
+				<div id="inputMsg4" class="inputStyle4 resultTag"></div>
+			</div>
+		</div>
+		<input type="button" value="確認" id="button_1" class="bottunStyle">
+	</div>
+
+	<div id="resultDialog" title="確認結果"></div>
+
+	<table id="list"></table>
+
+</body>
+</html>

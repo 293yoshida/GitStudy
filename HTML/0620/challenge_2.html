@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			jQuery('#button_1').click(function(){
+				var textBox1Value = $('#textBox1').val();
+				var textBox2Value = $('#textBox2').val();/* なぜかJQueryUIのattr()では値が取得できない */
+				var reg = new RegExp("[^0-9A-Za-z]+");
+				if(textBox1Value >= 10 && textBox1Value <= 100 && (textBox2Value.match(reg) == null) && (textBox2Value.length == 5)){
+					jQuery( '#resultDialog' ).text("OK!!");
+					jQuery( '#resultDialog' ).dialog( 'open' );
+				}else{
+					jQuery( '#resultDialog' ).text("NG!!");
+					jQuery( '#resultDialog' ).dialog( 'open' );
+				}
+			});
+
+			jQuery( '#resultDialog' ).dialog( {
+        		autoOpen: false,
+    		} );
+		});
+
+	</script>
+
+	<style type="text/css">
+	</style>
+
+<body>
+	<input type="text" id="textBox1" value="1">
+	<input type="text" id="textBox2" value="2">
+	<input type="button" value="確認" id="button_1">
+
+	<div id="resultDialog" title="確認結果">
+		<p id="resultText">ok</p>
+	</div>
+
+</body>
+</html>

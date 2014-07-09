@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			jQuery('#button_1').click(function(){
+				var textBox1Value = $('#textBox1').val();/* なぜかJQueryUIのattr()では値が取得できない */
+				var textBox2Value = $('#textBox2').val();/* なぜかJQueryUIのattr()では値が取得できない */
+				var checks1 = jQuery('#textBox1').attr('checks');//textBox1のcheck属性の取得
+				var terms1 = checks1.split(";");//text1Boxのcheck属性の分割[;]
+
+				var checks2 = jQuery('#textBox2').attr('checks');//textBox2のcheck属性の取得
+				var terms2 = checks2.split(";");//text2Boxのcheck属性の分割[;]
+		
+				/* textBox1 のチェック */		
+				var valueCheckFlag = new Boolean(true);//textBox1Valueが条件式に見合っているかの確認用フラグ
+				for(i=0; i<terms1.length; i++){
+					valueCheckFlag = checkValue(terms1[i], textBox1Value );/* 引数1に条件式[min:100] 引数2に比較する値*/
+					if(!valueCheckFlag)break;//エラーやfalseになったらすぐ抜ける
+				}
+
+				/* textBox2 のチェック */
+				var valueCheckFlag2 = new Boolean(true);//textBox2Valueが条件式に見合っているかの確認用フラグ
+				if(valueCheckFlag){
+    				for(i=0; i<terms2.length; i++){
+					 	valueCheckFlag2 = checkFont(terms2[i], textBox2Value );
+    					if(!valueCheckFlag2)break;
+    				}
+				}else{
+					//alert("Invalid Argment Error!! terms1");
+				}
+
+				/* 結果のダイアログ出力 */
+				if(valueCheckFlag && valueCheckFlag2){
+					jQuery( '#resultDialog' ).text("OK!!");
+					jQuery( '#resultDialog' ).dialog( 'open' );
+				}else{
+					jQuery( '#resultDialog' ).text("NG!!");
+					jQuery( '#resultDialog' ).dialog( 'open' );
+				}
+				
+			});
+
+			jQuery( '#resultDialog' ).dialog( {
+        		autoOpen: false,
+    		} );
+		});
+
+		/* checks属性の確認用
+		function checksValue(checksStr, textValue){
+			var terms = checksStr.split(";");//text1Boxのcheck属性の分割[;]
+			
+			for(i=0; i<terms.len; i++){
+				
+			}			
+		}*/
+
+
+		/* テキストボックス１の確認用 */
+		function checkValue(term, textValue){
+			var termVal = term.split(":");//入力された条件式の分割(ex) [max:200])
+			//alert("termVal[0]: " + termVal[0] + " termVal[1]: " + termVal[1] + " textValue: " + textValue);
+    		switch(termVal[0]){
+   				case "max":
+					if(parseInt( textValue ) <= parseInt(termVal[1])){
+						//jQuery( '#resultDialog' ).text("OK!!");
+						//jQuery( '#resultDialog' ).dialog( 'open' );
+                        return true;
+					}else{
+						//jQuery( '#resultDialog' ).text("NG!!");
+						//jQuery( '#resultDialog' ).dialog( 'open' );
+                        return false;
+					}
+					break;
+
+				case "min":
+					if(parseInt( textValue ) >= parseInt(termVal[1])){
+						//jQuery( '#resultDialog' ).text("OK!!");
+						//jQuery( '#resultDialog' ).dialog( 'open' );
+    					return true;
+					}else{
+						//jQuery( '#resultDialog' ).text("NG!!");
+						//jQuery( '#resultDialog' ).dialog( 'open' );
+    					return false;
+					}
+					break;
+
+				default:
+					//alert("Invalid Argment Error!! textBox1 check attribute");
+					return false;
+					break;
+			}
+		}
+
+		/* テキストボックス2の半角英数と範囲の確認用 */
+		function checkFont(term, textValue){
+   			//alert("In checkFont  term: " + term + " textValue: " + textValue);
+    		var termVal = term.split(":");//入力された条件式の分割(ex) [alphaNumeric])
+			
+			switch(termVal[0]){
+				case "alphaNumeric":
+					var reg = new RegExp("[^0-9A-Za-z]+");
+    				if(textValue.match(reg) == null){
+						//alert("半角英数OK");
+						return true;
+					}else{
+						//alert("半角英数NG");
+						return false;
+					}
+					break;
+				
+				case "betweenLength":
+					var param = termVal[1].split(",");
+					var paramMin = param[0];
+					var paramMax = param[1];
+					//alert("paramMin:" + paramMin + " paramMax:" + paramMax + " textValue: " + textValue);
+					if((parseInt(textValue) >= parseInt(paramMin)) && (parseInt(textValue) <= parseInt(paramMax))){
+						//alert("範囲OK");
+						return true;
+					}else{
+						//alert("範囲NG");
+						return false;
+					}		 					
+					break;
+
+				default:
+					alert("Invalid Argment Error!! textBox2 check attribute");
+					break;
+			}
+		}
+		
+
+	</script>
+
+	<style type="text/css">
+	</style>
+
+<body>
+	<input type="text" id="textBox1" value="1" checks="min:10;max:100">
+	<input type="text" id="textBox2" value="2" checks="alphaNumeric;betweenLength:5,10">
+	<input type="button" value="確認" id="button_1">
+
+	<div id="resultDialog" title="確認結果">
+		<p id="resultText">ok</p>
+	</div>
+
+</body>
+</html>

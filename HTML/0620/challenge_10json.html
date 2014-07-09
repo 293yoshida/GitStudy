@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript">
+		
+
+		/* JQgridによる結果の表示 */
+		function outputJqgrid(resultJson){
+
+			try{
+	    		var resultArray = JSON.parse(resultJson);//JSONをObjectへ
+				var mydata = new Array();
+				var num = 0;
+				for(var key in resultArray){
+					var param = resultArray[key].split("}");
+					for(var id_i=0; id_i<param.length-1; id_i++){//>
+						mydata[num] = (new Function("return " + param[id_i] + "}"))();
+    					num++;
+					}
+				}
+
+				/*
+				var array1 = new Array(2);	
+				array1[0] = "{Id:'textBox1',Checks:'min:10',Value:'1',Result:'FALSE'}";
+				array1[1] = "{Id:'textBox1',Checks:'min:10',Value:'1',Result:'FALSE'}";
+				array1[0] = (new Function("return " + array1[0]))();
+				array1[1] = (new Function("return " + array1[1]))();
+				*/
+				/*
+				var mydata = [
+						{Id:"textBox1",Checks:"min:10",Value:"1",Result:"FALSE"},
+						{Id:"textBox1",Checks:"max:100",Value:"1",Result:"TRUE"},
+						{Id:"textBox2",Checks:"alphaNumeric",Value:"2",Result:"TRUE"},
+						{Id:"textBox2",Checks:"betweenLength:5,5",Value:"2",Result:"FALSE"},
+						{Id:"textBox3",Checks:"alphaNumeric",Value:"3",Result:"TRUE"},
+						{Id:"textBox3",Checks:"betweenLength:5,10",Value:"3",Result:"FALSE"},
+						{Id:"textBox4",Checks:"min:30",Value:"4",Result:"FALSE"},
+						{Id:"textBox4",Checks:"max:200",Value:"4",Result:"TRUE"},
+						{Id:"textBox4",Checks:"alphaNumeric",Value:"4",Result:"TRUE"},
+						{Id:"textBox5",Checks:"h-char",Value:"5",Result:"FALSE"},
+						{Id:"textBox5",Checks:"h-digit",Value:"5",Result:"TRUE"},
+						{Id:"textBox5",Checks:"h-symbol",Value:"5",Result:"FALSE"},
+						{Id:"textBox5",Checks:"alphaNumeric-symbol",Value:"5",Result:"TRUE"},
+						{Id:"textBox5",Checks:"h-kana",Value:"5",Result:"FALSE"},
+						{Id:"textBox5",Checks:"hira",Value:"5",Result:"FALSE"},
+						{Id:"textBox5",Checks:"kana",Value:"5",Result:"FALSE"},
+						{Id:"textBox5",Checks:"char",Value:"5",Result:"FALSE"},
+						{Id:"textBox5",Checks:"length-min:2",Value:"5",Result:"FALSE"},
+						{Id:"textBox5",Checks:"length-max:4",Value:"5",Result:"TRUE"},
+						{Id:"textBox6",Checks:"phone",Value:"6",Result:"FALSE"},
+						{Id:"textBox7",Checks:"date" ,Value:"7",Result:"FALSE"},
+						{Id:"textBox8",Checks:"mail" ,Value:"8",Result:"FALSE"},
+					];
+					*/
+				$("#list").GridUnload();
+				$("#list").jqGrid({
+					data: mydata,
+					datatype: 'local',
+					caption : '確認結果一覧',	//表の題名
+					colNames: ['テキストボックスID','checks属性値','テキストボックス値','確認結果'], 
+					colModel: [
+						{index:'Id'     , name:'Id'},
+						{index:'Checks' , name:'Checks'},	
+						{index:'Value'  , name:'Value'},
+						{index:'Result' , name:'Result'}
+					],
+					//sortname	: "code", 
+					//sortorder	: "ASC",
+
+					rowNum   : 100, 
+					height		: 'auto',
+					grouping	: true,	//グルーピングを使用する
+					groupingView: {		//グルーピングの設定
+							groupField		 : ['Id'], //グループ化したい項目
+							groupText		 : ['<b>{0}</b>'], //グループ化した項目の表示名
+							groupOrder 		 : ['asc'], //昇順
+							groupSummary	 : [true]  //サマリータイプを使用する
+					}
+				});
+			}catch(e){
+				alert(e);
+			}
+
+		}
+
+
+		/* 結果表示用DivタグにPタグを挿入
+		 * resultArray: 連想配列 key=inputのid名(今回はテキストボックス), value=出力したい値
+		 */
+		function htmlAppend(resultArrayJson){
+			//alert(resultArrayJson);
+			var resultArray = JSON.parse(resultArrayJson);//JSONをObjectへ
+			try{				
+				$(".textStyleLeft > *").remove("p"); //inputタグの属するdivタグ内のpタグを全削除
+
+				for (var keyStr in resultArray) { //inputタグの個数分ループ
+	    			var param =  resultArray[keyStr].split("}");
+					var positionTop  = $("#" + keyStr).css("top");
+					var positionLeft = parseInt($("#" + keyStr).css("left")) + parseInt($("#" + keyStr).css("width"));
+					var strMargin = 0;
+
+	    			for(var num=0; num<param.length-1; num++){//>
+						/* 戻り値がエラーでないか確認 */
+						var err_check = new RegExp("Error", "i");
+						if(err_check.test(param[num])){
+							alert(param[num] + "}");
+	    					continue;
+						}
+
+						var resultTag = $("<p />").text(param[num] + "}");
+						var re = new RegExp("TRUE", "i");
+						if(re.test(param[num])){
+	    					resultTag.attr("class","resultColorGreen");
+	    				}else{
+	    					resultTag.attr("class","resultColorRed");
+	    				}
+						
+						resultTag.css("display", "inline");
+						resultTag.css("position" , $("#" + keyStr).css("position"));
+						resultTag.css("top" , positionTop);
+						resultTag.css("left", parseInt(strMargin) + parseInt(positionLeft));
+				
+						$( "#" + keyStr ).after( resultTag );
+						strMargin += parseInt(resultTag.css("width")); // 文字を横ならびにするため
+					}
+	　　		}
+			}catch(em){
+				alert(em);
+			}
+		}
+		
+		$(document).ready(function(){
+			jQuery('#button_1').click(function(){
+				
+				var arrayInputTag = $("input[type='text'][checks]");  //テキストボックスのDOMを取得
+				var result = checksValue(arrayInputTag);
+    			
+				//htmlAppend(result); //結果の表示
+				outputJqgrid(result);//jqgridの表示
+				
+			});
+		});
+
+		/* regStr:正規表現 checksText:チェックしたい文字列 result:結果を付与したい文字列の前文 */
+		function checkRegExp(regStr, checksText, result){
+			var checkReg = new RegExp("phone|date|mail");/* なるほど後半が優先か */
+			var checkEx  = result.match(checkReg);
+
+			var reg = new RegExp(regStr);
+				
+			/* phone mail date */
+			if(checkEx != null){
+				if(reg.test(checksText)){
+					return result + "Result:\"TRUE\"}";
+				}else{
+					return result + "Result:\"FALSE\"}";
+				}
+			}
+			/* other */
+	    	else if(checksText.match(reg) == null){
+				return result + "Result:\"TRUE\"}";
+			}else{
+				return result + "Result:\"FALSE\"}";
+			}
+		}
+
+
+		/* checks属性の確認用 
+		 * checksElement : 
+		*/
+		function checksValue(checksElement){
+			
+			var elementNum = $(checksElement).length;  //要素数の取得
+			var resultArray = new Object(); //結果格納用連想配列
+
+			for(var e=0; e<elementNum; e++){//>
+    			
+				try{
+					var textValue = $(checksElement[e]).val(); //テキストに入力された値
+					/* idの確認 */
+					if($(checksElement[e]).attr('id') != ""){
+						var inputID = $(checksElement[e]).attr('id'); //自身のid
+						resultArray[inputID] = ""; //中身にundefinedが入るので初期化
+					}else{alert("No found input id");}
+					
+					/* checks属性の確認 */
+					if($(checksElement[e]).attr('checks') != ""){
+						var terms = $(checksElement[e]).attr('checks').split(";"); //checks属性の分割[;]
+					}else{
+						resultArray[inputID] = "{Id:\"" + inputID + "\",Checks:\"none\",Value:\"" + textValue + "\",Result:\"No Checks Attribute Error!!\"}";
+    					continue;
+					}
+
+					/* 入力されたValue値の確認 */
+					if(textValue == ""){
+    					resultArray[inputID] = "{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"none\",Result:\"No Value Error!!\"}";
+						continue;
+					}
+	
+					/* checks内の要素分ループ */
+					for(var i=0; i<terms.length; i++){//>
+						var param = terms[i].split(":");
+						var resStr = "{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",";
+
+		    			switch(param[0]){
+							case "max":
+								var reg = new RegExp("[^0-9]");
+								if(parseInt( textValue ) <= parseInt(param[1]) && (textValue.match(reg) == null)){//>
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"TRUE\"}";
+								}else{
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"FALSE\"}";
+								}
+								break;
+
+							case "min":
+								var reg = new RegExp("[^0-9]");
+								if(parseInt( textValue ) >= parseInt(param[1]) && (textValue.match(reg) == null)){
+									resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"TRUE\"}";
+								}else{
+									resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"FALSE\"}";
+		 						}
+								break;
+
+							case "alphaNumeric":
+								resultArray[inputID] += checkRegExp("[^0-9A-Za-z]+", textValue, resStr);			
+								break;
+
+							case "betweenLength":
+								var range = param[1].split(",");
+								var paramMin = range[0];
+								var paramMax = range[1];
+
+								if((textValue.length >= parseInt(paramMin)) && (textValue.length <= parseInt(paramMax))){//>
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"TRUE\"}";
+								}else{
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"FALSE\"}";
+								}		 					
+								break;
+
+							case "h-char":
+								resultArray[inputID] += checkRegExp("[^A-Za-z]+", textValue, resStr);
+								break;
+
+							case "h-digit":
+								resultArray[inputID] += checkRegExp("[^0-9]+", textValue, resStr);
+								break;
+
+							case "h-symbol":
+								resultArray[inputID] += checkRegExp("[^!-/:-@[-`{-~]+", textValue, resStr);
+								break;
+
+							case "alphaNumeric-symbol":
+								resultArray[inputID] += checkRegExp("[^!-/:-@[-`{-~0-9A-Za-z]+", textValue, resStr);
+								break;
+
+							case "h-kana":
+								resultArray[inputID] += checkRegExp("[^ｧ-ﾝﾞﾟ]+", textValue, resStr);
+								break;
+
+							case "hira":
+								resultArray[inputID] += checkRegExp("[^あ-ん]+", textValue, resStr);						
+								break;
+
+							case "kana":
+								resultArray[inputID] += checkRegExp("[^ア-ン]+", textValue, resStr);
+								break;
+
+							case "char":
+								resultArray[inputID] += checkRegExp("[\x00-\x7f]+", textValue, resStr);
+								break;
+
+							case "length-min":
+								if(textValue.length >= param[1]){
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"TRUE\"}";
+								}else{
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"FALSE\"}";
+								}
+								break;
+
+							case "length-max":
+								if(textValue.length <= param[1]){//>
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"TRUE\"}";
+								}else{
+    								resultArray[inputID] +=	"{Id:\"" + inputID + "\",Checks:\"" +String(terms[i]) + "\",Value:\"" + textValue + "\",Result:\"FALSE\"}";
+								}
+								break;
+
+							case "phone":
+								resultArray[inputID] += checkRegExp("^[0-9]{3,4}\-[0-9]{3,4}\-[0-9]{4}$", textValue, resStr);
+								break;
+
+							case "date":
+								resultArray[inputID] += checkRegExp("^[0-9]{3,4}\/[0-9]{1,2}\/[0-9]{1,2}$", textValue, resStr);
+								break;
+
+							case "mail":
+								//[a-z]+\.[a-z]+\.[a-z]+
+								//var reg = new RegExp("(^[a-z].[a-zA-Z\.\-_]+\@[a-z]+\.[a-z]{2}\.[a-z]{2}$)|(^[a-z].[a-zA-Z\.\-_]+\@[a-z]+\.[a-z]+$)");
+								resultArray[inputID] += checkRegExp("^[a-z].[a-zA-Z\.\-_]+\@[a-z]+\.[a-z][a-z]\.[a-z]{2}$", textValue, resStr);
+								break;
+
+							default:
+								resultArray[inputID] += "[Error;No match checks parameter=" + param[0] + "; Result:ERROR]";
+								break;
+
+						}//end switch
+					}
+				}catch( e ){
+					alert(e);
+				}
+			}
+			return JSON.stringify(resultArray); //JSON型で返す
+		}
+
+	</script>
+
+	<style type="text/css">
+		body,html{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #FFF;
+		}
+		.inputStyle1{
+    		position:absolute;
+    		top:10px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+		.inputStyle2{
+    		position:absolute;
+    		top:40px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle3{
+    		position:absolute;
+    		top:70px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle4{
+    		position:absolute;
+    		top:100px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle5{
+    		position:absolute;
+    		top:130px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle6{
+    		position:absolute;
+    		top:160px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+		.inputStyle7{
+    		position:absolute;
+    		top:190px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle8{
+    		position:absolute;
+    		top:220px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.textStyle{
+			/* border:solid 1px green; */
+    		position:absolute;
+    		top:0;
+    		left:40;
+    		margin:0;
+    		padding:0;
+    		width:100%;
+    		height:500px;
+		}
+
+		.textStyleLeft{
+			/* border:solid 1px red; */
+    		position:absolute;
+    		top:0;
+    		left:0;
+    		/*width:700px;*/
+			width:100%;
+    		height:100%;
+		}
+		.textStyleRight{
+			/* border:solid 1px blue; */
+    		position:absolute;
+    		top:0;
+    		left:200px;
+    		right:5px;
+    		height:100%;
+		}
+
+		.bottunStyle{
+    		position:absolute;
+    		top:400px;
+    		left:20px;
+    		width:200px;
+		}
+
+		.resultTag{
+    		margin-top:0;
+		}
+
+		.resultColorRed{
+    		color:red;
+    		margin-left:30px;
+    		margin-top:0;
+    		display:inline;
+		}
+
+		.resultColorGreen{
+    		color:green;
+    		margin-left:30px;
+    		margin-top:0;
+    		display:inline;
+		}
+
+		.layoutJqgrid{
+    		position:absolute;
+    		left:500px;
+    		top:0px;
+		}
+
+	</style>
+
+<body>
+
+	<div id="#container">
+		<div class="textStyle">
+			<div class="textStyleLeft">
+				<input type="text" id="textBox1" value="1" checks="min:10;max:100" class="inputStyle1" >
+				<input type="text" id="textBox2" value="2" checks="alphaNumeric;betweenLength:5,5"  class="inputStyle2" >
+				<input type="text" id="textBox3" value="3" checks="alphaNumeric;betweenLength:5,10" class="inputStyle3" >
+				<input type="text" id="textBox4" value="4" checks="min:30;max:200;alphaNumeric" class="inputStyle4" >
+				<input type="text" id="textBox5" value="5" checks="h-char;h-digit;h-symbol;alphaNumeric-symbol;h-kana;hira;kana;char;length-min:2;length-max:4" class="inputStyle5" >
+				<input type="text" id="textBox6" value="6" checks="phone" class="inputStyle6" >
+				<input type="text" id="textBox7" value="7" checks="date" class="inputStyle7" >
+				<input type="text" id="textBox8" value="8" checks="mail" class="inputStyle8" >
+			</div>
+
+		</div>
+		<input type="button" value="確認" id="button_1" class="bottunStyle">
+	</div>
+
+	<div id="resultDialog" title="確認結果"></div>
+	
+	<div class="layoutJqgrid">
+		<table id="list"></table>
+	</div>
+</body>
+</html>

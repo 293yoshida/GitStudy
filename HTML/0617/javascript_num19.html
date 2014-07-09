@@ -1,0 +1,32 @@
+<html>
+
+<head>
+	<script type="text/javascript">
+		window.prompt("パスワードを入力してください。", "");
+		
+		
+		function timeFunc(){
+			document.write("OK!!");
+			window.close();
+		}
+		
+		function timerStart(){
+			setTimeout("timeFunc()",1000);
+			close();
+		}
+		
+		function timerIntervalStart(){
+			setInterval("timeFunc()",1000);
+		}
+		
+	</script>
+</head>
+
+<body>
+
+	<input type="button" value="Timer Start!!" onclick="timeFunc()">
+
+
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<html>
+
+<head>
+	<script type="text/javascript">
+	
+		function kansuu(){
+			alert("ŠÖ”“à‚¾‚æ");
+		}
+		
+		function kakuninn(){
+			if(window.confirm("‚æ‚ë‚µ‚¢‚©H")){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		function jstrlen(str,   len, i) {
+   			len = 0;
+   			str = escape(str);
+   			for (i = 0; i < str.length; i++, len++) {
+    		  if (str.charAt(i) == "%") {
+        		if (str.charAt(++i) == "u") {
+            		i += 3;
+            		len++;
+         		}
+        		i++;
+      		   }
+   			}
+   			return len;
+		}
+		
+		function replaceStr(str, Old, New){
+			var newStr = str.replace(Old, New);
+			alert(newStr);
+		}
+		
+		function matchStr(str, serchStr){
+			if(str.match(/def/i)){
+				alert("Match");
+			}
+		}
+		
+		function arrayTest(){
+			var xx = new Array(3);
+			xx[0] = "Sun";
+			xx[1] = "Mon";
+			xx[6] = "Sat";
+			yy = new Array("Sun", "Mon", "Thu");
+			alert(yy[0] + yy[1] + yy[2]);
+		}
+
+		function arrayStrTest(str){
+			var xx = new Array();
+			xx["Sun"] = "Sunday";
+			xx["Mon"] = "Monday";
+			alert(xx[str]);
+		}
+	
+
+	 var a;
+	</script>
+</head>
+
+<body>
+	<form action="#">
+		<script type="text/javascript">
+			var val1 = "ABCDEFG";
+			var val2 = "‚³";
+			var val3 = "‚¢";
+			var serch = "/def/i";
+			document.write("‘¾š".bold());
+		</script>
+		<input type="button" value="OK" onclick="replaceStr(val1,val2,val3)">
+		<input type="button" value="Match" onclick="matchStr(val1,serch)">
+		<input type="button" value="ArrayTest" onclick="arrayTest()">
+		<input type="button" value="ArrayStrTest" onclick="arrayStrTest('Sun')">
+	</form>
+	
+</body>
+</html>

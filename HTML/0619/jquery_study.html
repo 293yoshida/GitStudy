@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<script type="text/javascript" src="./jquery-1.11.1.min.js"></script>
+	<script type="text/javascript">
+		function loadFunc(){
+    		$("#myDiv").css("border", "3px solid red");
+    		$("p#first").html("<strong>変更後</strong>");
+			$("p").css("color","red");
+/*			
+			$("#button1").click(function(){
+				alert("ok");
+    			$("#b1").css("color","red");
+			});
+*/
+		}
+
+		$(document).ready(function(){
+			$("#button1").click(function(){
+				alert("ok");
+    			$("#b1").css("color","red");
+			});
+		 });
+
+	</script>
+
+</head>
+
+
+<body>
+	<div id="myDiv">
+  		OK
+		<p id="first">変更前</p>
+	</div>
+	<button id="button1">おす</button>
+	<input type="button" onclick="loadFunc()" width="100%" height="50px" value="JQuery" id="b1">
+
+
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<script type="text/javascript">
+		
+		function timeFunc(){
+			document.write(window.navigator.appName);
+			document.write(window.navigator.taintEnabled() + "\n");
+			
+			function func() {
+			elm = document.createElement("option");
+			elm.text = "CCC";
+			document.F1.S1.appendChild(elm);
+			}
+		}
+		
+		function addElement() { 
+	    	var element = document.createElement('div'); 
+	    	element.id = "id"; 
+	    	element.innerHTML = "hogehoge"; 
+	    	element.style.backgroundColor = 'red'; 
+	    
+	    	var objBody = document.getElementsByTagName("body").item(0); 
+	    	objBody.appendChild(element);  
+		} 
+	</script>
+</head>
+
+<body>
+
+	<input type="button" value="Timer Start!!" onclick="addElement()">
+	
+	<form action="#">
+		<input type="button" value="red" onclick="document.bgColor='red'">
+		<select name="S1" size=5>
+			<option>AAA
+			<option>BBB
+		</select>
+		<input type="button" onclick="func()" value="Add">
+	</form>
+
+
+</body>
+
+</html>

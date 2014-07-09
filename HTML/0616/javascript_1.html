@@ -1,0 +1,60 @@
+<html>
+<head>
+
+</head>
+
+<body>
+	<script type="text/javascript">
+		var a,b,c;
+		a=10;
+		b=90;
+		c = a + b;
+		if(c == "100"){
+			alert(c);
+		}else{
+			alert("小さいょ");
+		}
+		
+		var str = "aji";
+		switch(str){
+			case "aji":
+				alert("アジだね");
+				break;
+			
+			case "maguro":
+				alert("マグロっ！！");
+				break;
+				
+			case "tai":
+				alert("タイ");
+				break;
+			
+			default:
+				alert("新種だと!?");
+				break;
+		}
+		
+		var n = 0;
+		
+		while(n < 10){
+			document.write(n);
+			n++;
+		}
+		
+		var array = new Array(3);
+		array[0] = "A";
+		array[1] = "B";
+		array[2] = "C";
+		
+		for(i in array){
+			document.write(array[i]);
+		}
+				
+	</script>
+	
+	<form action="#">
+		<input type="button" value="OK" onclick="alert('小さいょ');" />
+	</form>
+</body>
+
+</html>

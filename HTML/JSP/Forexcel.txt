@@ -1,0 +1,29 @@
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">	
+	
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
+
+	<script type="text/javascript">
+
+	</script>
+	
+	<style type="text/css">
+
+	</style>
+
+<body>
+
+	//HTMLの画面レイアウトの記述
+
+</body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript">
+
+		var mydata = {
+			OP: "", 
+			VAL: "", 
+			ARG: "",
+			RSL: ""
+		};
+
+		function addGridRow(op, opVal, textVal, result){
+			var tmpData ={
+    				OP: op, 
+					VAL: opVal, 
+					ARG: textVal,
+					RSL: result
+			};
+
+			try{
+				//$("#list").addRowData(undefined, tmpData);
+    		}catch( e ){
+  				//alert( e );  // バグの内容をダイアログで表示する
+			}
+			
+		}
+		
+		function createGrid(){
+    		$("#list").jqGrid({
+				data: mydata,
+				datatype: 'local',
+				caption : '確認結果一覧',	//表の題名
+				colNames: ['オプション','数値','引数','結果'], 
+				colModel: [
+					{index:'OP'  , name:'OP'},
+					{index:'VAL' , name:'VAL'},	
+					{index:'ARG' , name:'ARG'},
+					{index:'RSL' , name:'RSL'}
+				],
+				//sortname	: "code", 
+				//sortorder	: "ASC",
+
+				height		: 'auto',
+				grouping	: true,	//グルーピングを使用する
+				groupingView: {		//グルーピングの設定
+						groupField		 : ['OP'], //グループ化したい項目
+						groupText		 : ['<b>{0}</b>'], //グループ化した項目の表示名
+						groupOrder 		 : ['asc'], //昇順
+						groupSummary	 : [true]  //サマリータイプを使用する
+				}
+			});
+		}
+
+		function htmlAppend(htmlTag, addTagName){
+			$(htmlTag).append( "<p>" + addTagName + "</p>" );
+		}
+
+		function htmlResultView(htmlTag, Msg, textCol){
+			var curText = $(htmlTag).text();
+    		alert(curText);
+    
+			if(curText != "")curText += "";
+
+			$(htmlTag).text(curText + Msg);
+    		$(htmlTag).css("color", textCol);
+		}
+
+		function htmlClearResultView(htmlTag){
+			$(htmlTag).text("");
+		}		
+
+		$(document).ready(function(){
+			jQuery('#button_1').click(function(){
+				
+				//createGrid();
+
+				var arrayInputTag = $("[type='text']");
+				var arrayNum = $(arrayInputTag).length;
+				//alert(String($(arrayInputTag[0]).attr('nameVal')));
+				//alert(String($(arrayInputTag[0]).attr('id')));
+				//alert(String($(arrayInputTag[0]).attr('rstView')));
+
+				$( '#resultDialog' ).empty();/* ダイアログのメッセージを初期化 */
+
+				for(j=0; j<arrayNum; j++){//>
+					htmlClearResultView( "#" + String($(arrayInputTag[j]).attr('rstView')) ); 
+    				checksValue(String($(arrayInputTag[j]).attr('checks')), String($(arrayInputTag[j]).val()), String($(arrayInputTag[j]).attr('rstView')) );
+				}
+
+				/* 結果のダイアログ出力
+				if(valueCheckFlag && valueCheckFlag2){
+					jQuery( '#resultDialog' ).text("OK!!");
+					jQuery( '#resultDialog' ).dialog( 'open' );
+				}else{
+					jQuery( '#resultDialog' ).text("NG!!");
+					jQuery( '#resultDialog' ).dialog( 'open' );
+				}*/
+				
+				jQuery( '#resultDialog' ).dialog( 'open' );
+				
+			});
+
+			jQuery( '#resultDialog' ).dialog( {
+        		autoOpen: false,
+				width:500,
+    		} );
+		});
+
+		/* checks属性の確認用 */
+		function checksValue(checksStr, textValue, idName){
+			//alert(checksStr + "  " + textValue); 
+			var terms = checksStr.split(";");//text1Boxのcheck属性の分割[;]
+			
+			/* checks内の要素分ループ */
+			for(i=0; i<terms.length; i++){//>
+				var param = terms[i].split(":");
+				//alert( param[0] + " " + param[1] + " " +  textValue );
+    			switch(param[0]){
+					case "max":
+						if(parseInt( textValue ) <= parseInt(param[1])){//>
+							addGridRow("max", param[1], textValue, "TRUE");
+							htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=TRUE") );
+    						htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=TRUE"), "green");
+						}else{
+							addGridRow("max", param[1], textValue, "FALSE");
+							htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=FALSE") );
+    						htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=TRUE"), "red");
+						}
+						break;
+
+					case "min":
+						if(parseInt( textValue ) >= parseInt(param[1])){
+							addGridRow("min", param[1], textValue, "TRUE");
+    						htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=TRUE") );
+							htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=TRUE"), "green");
+						}else{
+							addGridRow("min", param[1],textValue, "FALSE");
+    						htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=FALSE") );
+    						htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=FALSE"), "red");
+						}
+						break;
+
+					case "alphaNumeric":
+						var reg = new RegExp("[^0-9A-Za-z]+");
+    					if(textValue.match(reg) == null){
+							addGridRow("alphaNumeric", "－", textValue, "TRUE");
+							htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=TRUE") );
+    						htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=TRUE"), "green");
+						}else{
+							addGridRow("alphaNumeric", "－", textValue, "FALSE");
+							htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=FALSE") );
+    						htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=FALSE"), "red");
+						}
+						break;
+				
+					case "betweenLength":
+						var range = param[1].split(",");
+						var paramMin = range[0];
+						var paramMax = range[1];
+						//alert("paramMin:" + paramMin + " paramMax:" + paramMax + " textValue: " + textValue);
+						if((parseInt(textValue) >= parseInt(paramMin)) && (parseInt(textValue) <= parseInt(paramMax))){//>
+							addGridRow("betweenLength", paramMin + ":" + paramMax, textValue, "TRUE");
+							htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=TRUE") );
+    						htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=TRUE"), "green");
+						}else{
+							addGridRow("betweenLength", paramMin + ":" + paramMax, textValue, "FALSE");
+    						htmlAppend( "#resultDialog", (String(terms[i]) + " , " + textValue + " , Result=FALSE") );
+    						htmlResultView("#" + idName, (String(terms[i]) + " , " + textValue + " , Result=FALSE"), "red");
+						}		 					
+						break;
+
+					default:
+						
+						break;
+
+				}//end switch
+
+			}			
+		}
+
+	</script>
+
+	<style type="text/css">
+		body,html{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #FFF;
+		}
+		.inputStyle1{
+    		position:absolute;
+    		top:10px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+		.inputStyle2{
+    		position:absolute;
+    		top:40px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle3{
+    		position:absolute;
+    		top:70px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle4{
+    		position:absolute;
+    		top:100px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.textStyle{
+			border:solid 1px green;
+    		position:absolute;
+    		top:40;
+    		left:40;
+    		margin:0;
+    		padding:0;
+    		width:100%;
+    		height:500px;
+		}
+
+		.textStyleLeft{
+			border:solid 1px red;
+    		position:absolute;
+    		top:0;
+    		left:0;
+    		width:190px;
+    		height:100%;
+		}
+		.textStyleRight{
+			border:solid 1px blue;
+    		position:absolute;
+    		top:0;
+    		left:200px;
+    		right:5px;
+    		height:100%;
+		}
+
+		.bottunStyle{
+    		position:absolute;
+    		top:200px;
+    		left:20px;
+    		width:200px;
+		}
+
+		.resultTag{
+    		margin-top:0;
+		}
+
+
+	</style>
+
+<body>
+
+	<div id="#container">
+		<div class="textStyle">
+			<div class="textStyleLeft">
+				<input type="text" id="textBox1" value="1" checks="min:10;max:100" nameVal="text1" class="inputStyle1" rstView="inputMsg1">
+				<input type="text" id="textBox2" value="2" checks="alphaNumeric;betweenLength:5,5" nameVal="text2" class="inputStyle2" rstView="inputMsg2">
+				<input type="text" id="textBox3" value="3" checks="alphaNumeric;betweenLength:5,10" nameVal="text3" class="inputStyle3" rstView="inputMsg3">
+				<input type="text" id="textBox4" value="4" checks="min:30;max:200" nameVal="text4" class="inputStyle4" rstView="inputMsg4">
+			</div>
+			<div class="textStyleRight">
+				<p id="inputMsg1" class="inputStyle1 resultTag"></p>
+				<p id="inputMsg2" class="inputStyle2 resultTag"></p>
+				<p id="inputMsg3" class="inputStyle3 resultTag"></p>
+				<p id="inputMsg4" class="inputStyle4 resultTag"></p>
+			</div>
+		</div>
+		<input type="button" value="確認" id="button_1" class="bottunStyle">
+	</div>
+
+	<div id="resultDialog" title="確認結果">
+			<!--<p id="resultText">ok</p>-->
+	</div>
+
+	<table id="list"></table>
+
+</body>
+</html>

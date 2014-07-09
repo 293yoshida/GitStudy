@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640px"
+   height="480px"
+   id="svg2985"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="jsLayout.png">
+  <defs
+     id="defs2987">
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow2Lend"
+       style="overflow:visible;">
+      <path
+         id="path3982"
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         transform="scale(1.1) rotate(180) translate(1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lstart"
+       style="overflow:visible">
+      <path
+         id="path3961"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
+         transform="scale(0.8) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-6"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3982-1"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow2Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Lend-2"
+       style="overflow:visible">
+      <path
+         inkscape:connector-curvature="0"
+         id="path3982-3"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="matrix(-1.1,0,0,-1.1,-1.1,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="279.7384"
+     inkscape:cy="241.90489"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="706"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata2990">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <g
+       id="g3861"
+       transform="translate(32.526911,8.4852818)">
+      <g
+         id="g2997">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1.41418719px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 94.060267,104.29113 -37.058846,-0.25 0,-42.692195 27.39173,0.5 9.486635,8.365366 z"
+           id="path2993"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccccc" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 84.125,62.375001 0,8.125 9.75,0"
+           id="path2995"
+           inkscape:connector-curvature="0" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3001"
+         y="52.200401"
+         x="26.870062"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="52.200401"
+           x="26.870062"
+           id="tspan3003"
+           sodipodi:role="line">共通jsファイル</tspan></text>
+    </g>
+    <g
+       id="g3816"
+       transform="translate(200.11122,-8.4852813)">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;stroke:#0000ff;stroke-width:1.29473281;stroke-opacity:1"
+         y="14.871106"
+         x="243.39207"
+         height="231.63631"
+         width="182.13884"
+         id="rect3005" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3001-1"
+         y="33.5065"
+         x="252.14902"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="33.5065"
+           x="252.14902"
+           id="tspan3003-7"
+           sodipodi:role="line">ready{</tspan><tspan
+           id="tspan3798"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="53.5065"
+           x="252.14902"
+           sodipodi:role="line">if(タグAはあるか)</tspan><tspan
+           id="tspan3796"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="73.5065"
+           x="252.14902"
+           sodipodi:role="line">  イベント処理</tspan><tspan
+           id="tspan3800"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="93.5065"
+           x="252.14902"
+           sodipodi:role="line">if(タグBはあるか)</tspan><tspan
+           id="tspan3802"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="113.5065"
+           x="252.14902"
+           sodipodi:role="line">　イベント処理</tspan><tspan
+           id="tspan3804"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="133.5065"
+           x="252.14902"
+           sodipodi:role="line">・</tspan><tspan
+           id="tspan3806"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="153.5065"
+           x="252.14902"
+           sodipodi:role="line">・</tspan><tspan
+           id="tspan3808"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="173.5065"
+           x="252.14902"
+           sodipodi:role="line">・</tspan><tspan
+           id="tspan3814"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="193.5065"
+           x="252.14902"
+           sodipodi:role="line">個別Func();//呼び出し</tspan><tspan
+           id="tspan3810"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="213.5065"
+           x="252.14902"
+           sodipodi:role="line">}</tspan><tspan
+           id="tspan3812"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="233.5065"
+           x="252.14902"
+           sodipodi:role="line">個別Func(){空}</tspan></text>
+    </g>
+    <g
+       transform="translate(154.54745,201.44099)"
+       id="g3861-8">
+      <g
+         id="g2997-2">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1.41418719px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 94.060267,104.29113 -37.058846,-0.25 0,-42.692195 27.39173,0.5 9.486635,8.365366 z"
+           id="path2993-4"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccccc" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 84.125,62.375001 0,8.125 9.75,0"
+           id="path2995-5"
+           inkscape:connector-curvature="0" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3001-5"
+         y="52.200401"
+         x="26.870062"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="52.200401"
+           x="26.870062"
+           id="tspan3003-1"
+           sodipodi:role="line">個別jsファイル</tspan></text>
+    </g>
+    <g
+       id="g3915"
+       transform="translate(-16.263456,73.539105)">
+      <rect
+         y="314.47055"
+         x="28.924902"
+         height="82.864449"
+         width="319.74521"
+         id="rect3901"
+         style="fill:#ffffff;fill-opacity:1;stroke:#00ff00;stroke-width:0.8670488;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3903"
+         y="332.21469"
+         x="31.819803"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="332.21469"
+           x="31.819803"
+           id="tspan3905"
+           sodipodi:role="line">共通jsファイル読み込み</tspan><tspan
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="352.21469"
+           x="31.819803"
+           sodipodi:role="line"
+           id="tspan5389">個別Func(){</tspan><tspan
+           id="tspan3911"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="372.21469"
+           x="31.819803"
+           sodipodi:role="line"> 各ページ(HTMLファイル)特有の処理を実装</tspan><tspan
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           id="tspan3907"
+           y="392.21469"
+           x="31.819803"
+           sodipodi:role="line">}</tspan></text>
+    </g>
+    <g
+       transform="translate(-6.9893756,200.92919)"
+       id="g3861-8-7">
+      <g
+         id="g2997-2-1">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1.41418719px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 94.060267,104.29113 -37.058846,-0.25 0,-42.692195 27.39173,0.5 9.486635,8.365366 z"
+           id="path2993-4-1"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cccccc" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           d="m 84.125,62.375001 0,8.125 9.75,0"
+           id="path2995-5-5"
+           inkscape:connector-curvature="0" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3001-5-2"
+         y="52.200401"
+         x="26.870062"
+         style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic"
+           y="52.200401"
+           x="26.870062"
+           id="tspan3003-1-7"
+           sodipodi:role="line">個別jsファイル</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#0000ff;stroke-width:1.16409874;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:6.98459244, 1.16409874;stroke-dashoffset:0;marker-start:none;marker-end:none"
+       d="M 441.95969,69.860118 C 134.27287,93.225516 128.61602,93.932623 128.61602,93.932623"
+       id="path3955"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;stroke:#00fe00;stroke-width:1.207;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.828,1.207;stroke-dashoffset:0;marker-start:none;marker-end:none"
+       d="M 116.31733,386.32297 C 72.772156,307.04702 72.772156,307.04702 72.772156,307.04702"
+       id="path3955-4"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#00ff00;stroke-width:1.163;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:4.652,1.163;stroke-dashoffset:0;marker-start:none;marker-end:none"
+       d="M 157.12029,387.54507 C 231.701,307.11958 231.701,307.11958 231.701,307.11958"
+       id="path3955-4-2"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;marker-end:url(#Arrow2Lend-2)"
+       d="M 106.06602,111.59737 74.246212,231.80552"
+       id="path4817"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:2, 1;stroke-dashoffset:0;marker-end:url(#Arrow2Lend-2)"
+       d="M 106.77312,111.59737 214.96046,228.97709"
+       id="path5195"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="86.267036"
+       y="178.06541"
+       id="text5385"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5387"
+         x="86.267036"
+         y="178.06541"
+         style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:MS Gothic;-inkscape-font-specification:MS Gothic">読み込み</tspan></text>
+  </g>
+</svg>

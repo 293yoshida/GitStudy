@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript">
+
+		jQuery( function() {
+    		jQuery( "#_spinner" ).spinner( {
+        		spin: function( event, ui ) {
+            		jQuery( '#jquery-ui-progressbar' ).progressbar("value", ui.value);
+        		},
+        		change: function( event, ui) {
+            		jQuery( '#jquery-ui-progressbar' ).progressbar("value", ui.value);
+        		}
+    		} );
+		} );
+
+
+
+
+
+		function loadFunc(){
+    		$("#myDiv").css("border", "3px solid red");
+    		$("p#first").html("<strong>変更後</strong>");
+			$("p").css("color","red");
+/*			
+			$("#button1").click(function(){
+				alert("ok");
+    			$("#b1").css("color","red");
+			});
+*/
+		}
+
+		$(document).ready(function(){
+			$("#button1").click(function(){
+				alert("ok");
+    			$("#b1").css("color","red");
+			});
+
+
+			$("#button2").click(function(){
+				var valueNum = $("#changeImg").attr("value");
+				if(valueNum == 0){
+					$("#changeImg").attr("src","sea.jpg");
+    				$("#changeImg").attr("value", "1");
+    				$("#changeImg").show("slow");
+    			}else{
+					$("#changeImg").attr("src","flower.jpg");
+    				$("#changeImg").attr("value","0");
+    				$("#changeImg").show("slow");
+				}	
+			});
+			
+			$(function() {
+    			$( '#jquery-ui-accordion' ).accordion();
+			});
+
+			jQuery( function(){
+    			jQuery('#jquery-ui-datepicker').datepicker();
+			});
+/*
+			jQuery( function() {
+    			jQuery( '#jquery-ui-button' ) . button();
+    			jQuery( '#jquery-ui-button' ) . click( function() {
+        			jQuery( '#jquery-ui-effect' ) . addClass( 'toggle-class-1', 1000 );
+        			return false;
+    			} );
+			} );
+
+			jQuery( function() {
+   				jQuery( 'button, input:submit, a', '.jquery-ui-button' ) . button();
+			} );
+*/
+			jQuery( function() {
+    			jQuery( '#jquery-ui-button-1' ) . button( {
+        			icons: {
+            			primary: 'ui-icon-gear',
+        			},
+        			text: false
+    			} );
+    			jQuery( '#jquery-ui-button-2' ) . button( {
+        			icons: {
+            			primary: 'ui-icon-heart',
+        			}
+    			} );
+    			jQuery( '#jquery-ui-button-3' ) . button( {
+        			icons: {
+            			primary: 'ui-icon-lightbulb',
+            			secondary: 'ui-icon-star'
+        			}
+    			} );
+			} );
+
+			 jQuery( '#jquery-ui-button-menu' ) . buttonset();
+
+			jQuery( function() {
+    			jQuery( "#sampleSelect" ).button( {
+            		text: false,
+            		icons: {
+                		primary: "ui-icon-triangle-1-s"
+            		}
+        		} )
+        		.click( function() {
+                	var menu = jQuery( this ).parent().next().show().position( {
+                    	my: "left top",
+                    	at: "left bottom",
+                    	of: this
+                	} );
+                	jQuery( document ).one( "click", function() {
+                    	menu.hide();
+                	} );
+                return false;
+        		} )
+        		.parent()
+        		.buttonset()
+        		.next()
+        		.hide()
+        		.menu();
+			} );
+
+			jQuery( function() {
+				/* この記述がないと画面に文字が出てしまう */
+    			jQuery( '#jquery-ui-dialog' ) . dialog( {
+        			autoOpen: false,
+					show: 'explode',
+        			hide: 'explode',
+					height: 200,
+        			width: 250,
+    			} );
+    			jQuery( '#jquery-ui-dialog-opener' ) . click( function() {
+        			jQuery( '#jquery-ui-dialog' ) . dialog( 'open' );
+        			return false;
+    			} );
+			} );
+
+			jQuery( function() {
+    			jQuery( '#jquery-ui-draggable' ) . draggable();
+			} );
+
+			jQuery( function() {
+    			jQuery( '#jquery-ui-hide' ) . button();
+    			jQuery( '#jquery-ui-hide' ) . click( function() {
+        			jQuery( '#jquery-ui-effect' ) . hide( 'blind', '', 700 );
+    			} );
+			} );
+
+			jQuery( function() {
+    			jQuery( '#_position' ) . position( {
+        			my: 'left top',
+        			at: 'right bottom',
+        			of: jQuery( '#_position' ),
+        			offset: '-30',
+        			collision: 'none',
+    			} );
+			} );
+
+			jQuery( function() {
+    			jQuery( '#jquery-ui-progressbar' ) . progressbar( {
+        		value: 0
+    			} );
+			} );
+
+			jQuery( function() {
+    			jQuery( '#jquery-ui-resizable' ) . resizable();
+			} );
+
+			jQuery( function() {
+    			jQuery( "#jquery-ui-selectable" ) . selectable();
+			} );
+
+			jQuery( function(){
+				jQuery("#_slider").slider();
+			});
+
+			jQuery( function(){
+				jQuery("#_spinner").spinner();
+			});
+
+			jQuery( function(){
+				jQuery("#tabs").tabs();
+			});
+
+		 });
+		
+	</script>
+
+	<style type="text/css">
+		.slowImgClass{
+			display:none;
+		}
+
+		div#jquery-ui-accordion div.jquery-ui-accordion-title{
+		    margin: 1px 0 0 0;
+    		padding: 0.7em 0.5em 0.5em 2em;
+   		 	font-size: 16px;
+    		font-weight: bold;
+		}
+		div#jquery-ui-accordion div.jquery-ui-accordion-contents{
+    		margin: -2px 0 2px 0;
+    		padding: 0.5em 2em 1.5em 2em;
+   		 	font-size: 15px;
+		}
+
+		/*
+		#jquery-ui-button {
+    		font-size: 15px;
+		}
+		
+		#jquery-ui-effect {
+    		border-width: 1px;
+		}
+		#jquery-ui-effect h3 {
+    		margin: 0;
+    		margin-bottom: 10px;
+    		padding: 0.4em;
+    		text-align: center;
+		}
+		.toggle-class-0 {
+    		width: 240px;
+    		height: 135px;
+   			padding: 0.4em;
+    		background: #ffffff;
+		}
+		.toggle-class-1 {
+    		width: 500px;
+    		height: 200px;
+    		font-size: 1.5em;
+    		color: red;
+    		background: #00ffff;
+    		border-color: blue;
+		}
+		*/
+
+		.jquery-ui-button div{
+    		font-size: 14px;
+    		margin: 5px;
+    		float: left;
+		}
+
+		#jquery-ui-button-menu div{
+ 		   font-size: 14px;
+ 		   margin: 0;
+ 		   float: left;
+		}
+
+		#sample {
+ 		   width: 200px;
+		}
+
+		#jquery-ui-draggable {
+    		width: 100px;
+    		height: 100px;
+    		padding: 50px;
+    		margin: 0;
+    		border-radius: 10px;
+		}
+
+		#jquery-ui-effect {
+			width: 400px;
+    		padding: 50px 15px;
+    		font-size: 15px;
+    		background: khaki;
+		}
+
+		#_position{
+    		width: 300px;
+    		padding: 50px 0;
+    		text-align: center;
+    		font-size: 50px;
+    		background-color: pink;
+    		opacity: 0.75;
+    		position:absolute;
+    		top:0;
+		}
+
+		#jquery-ui-resizable {
+    		width: 300px;
+    		height: 100px;
+    		padding: 0.5em;
+		}
+		#jquery-ui-resizable h3 {
+    		text-align: center;
+    		margin: 0px 0px 0.5em 0px;
+		}
+
+		#jquery-ui-selectable .ui-selecting {
+    		background: #cccccc;
+		}
+		#jquery-ui-selectable .ui-selected {
+    		background: #888888;
+    		color: white;
+		}
+		#jquery-ui-selectable {
+    		list-style-type: none;
+    		margin: 0;
+    		padding: 1em;
+    		width: 60%;
+    		border-radius: 15px;
+    		background: #f0f0f0;
+		}
+		#jquery-ui-selectable li {
+ 		    margin: 3px;
+    		padding: 2px 1em;
+    		font-size: 15px;
+    		background: #e5e5e5;
+    		color: #666666;
+		}
+
+	</style>
+
+</head>
+
+<body>
+	<div id="myDiv">
+  		OK
+		<p id="first">変更前</p>
+	</div>
+	<button id="button1">おす</button>
+	<input type="button" onclick="loadFunc()" width="100%" height="50px" value="JQuery" id="b1">
+
+	<button id="button2">画像変更</button>
+	<img src="flower.jpg" alt="" value="0" id="changeImg" class="slowImgClass">
+
+	<!--
+	<div id="jquery-ui-accordion">
+    	<div class="jquery-ui-accordion-title">メニュー 1</div>
+    	<div class="jquery-ui-accordion-contents">
+        	<ul>
+            	<li><a href="#">メニュー 1-1</a></li>
+            	<li><a href="#">メニュー 1-2</a></li>
+           		<li><a href="#">メニュー 1-3</a></li>
+        	</ul>
+    	</div>
+    	<div class="jquery-ui-accordion-title">メニュー 2</div>
+    	<div class="jquery-ui-accordion-contents">
+        	<ul>
+            	<li><a href="#">メニュー 2-1</a></li>
+            	<li><a href="#">メニュー 2-2</a></li>
+            	<li><a href="#">メニュー 2-3</a></li>
+            	<li><a href="#">メニュー 2-4</a></li>
+            	<li><a href="#">メニュー 2-5</a></li>
+        	</ul>
+   		</div>
+    	<div class="jquery-ui-accordion-title">メニュー 3</div>
+    	<div class="jquery-ui-accordion-contents">
+    	    <p>もちろん、リストタグ以外も使える。</p>
+    	    <p>2階層の上下開閉式アコーディオン型パネルとしても使える。</p>
+   		</div>
+	</div>
+	-->
+
+	<p>日付: <input type="text" id="jquery-ui-datepicker"></p>
+
+	<!--
+	<button id="jquery-ui-button">変更</button>
+	<div id="jquery-ui-effect" class="toggle-class-0 ui-widget-content ui-corner-all">
+    	<h3 class="ui-widget-header ui-corner-all">アニメーション</h3>
+   		<p>このボックスの色とサイズをアニメーション動作で変更する。</p>
+	</div>
+	-->
+	
+	<!--
+	<div class="jquery-ui-button">
+    	<div><button>ボタン要素</button></div>
+    	<div><input type="submit" value="フォームの送信ボタン"/></div>
+    	<div><a href="#">アンカー要素（リンクタグ）</a></div>
+    	<div style="clear:both;"></div>
+	</div>-->
+
+	<div class="jquery-ui-button">
+    	<div><button id="jquery-ui-button-1">ボタン要素</button></div>
+    	<div><button id="jquery-ui-button-2">ボタン要素</button></div>
+    	<div><button id="jquery-ui-button-3">ボタン要素</button></div>
+    	<div style="clear:both;"></div>
+	</div>
+
+	<div id="jquery-ui-button-menu">
+    	<a href="#">メニュー1</a><a href="#">メニュー2</a><a href="#">メニュー3</a><a href="#">メニュー4</a><a href="#">メニュー5</a>
+	</div>
+	<div style="clear:both;"></div>
+
+	<div id="sample">
+    	<div>
+        	<button id="sampleSelect">Select</button>
+    	</div>
+    	<ul>
+    	    <li><a href="#A">Menu A</a></li>
+    	    <li><a href="#B">Menu B</a></li>
+    	    <li><a href="#C">Menu C</a></li>
+   		 </ul>
+	</div>
+
+	<div id="jquery-ui-dialog" title="ダイアログ">
+    	<p>これは、デフォルトのダイアログ。メッセージを表示したいときなどに便利。</p>
+    	<p>「×」アイコンをクリックすると閉じる。タイトルをドラッグしながら、ダイアログを移動できる。ダイアログのサイズを変更することもできる。</p>
+	</div>
+	<button id="jquery-ui-dialog-opener">ダイアログを開く</button>
+
+	<div id="jquery-ui-draggable" class="ui-widget-content">
+    	<p>ドラッグして<br />移動できる<br />ボックス。</p>
+	</div>
+
+	<button id="jquery-ui-hide">Hide</button>
+	<div id="jquery-ui-effect" class="ui-widget-content ui-corner-all">
+    	<p>「Hide」ボタンをクリックすると、ブラインドを開けるようなアニメーション動作で、このボックスを非表示にする。</p>
+	</div>
+
+	<div id="_position">POSITION</div>
+
+	<div id="jquery-ui-progressbar"></div>
+<!--
+	<div id="jquery-ui-resizable" class="ui-widget-content">
+    	<h3 class="ui-widget-header">Resizable</h3>
+    	<p>このボックスは、サイズを変更できる。</p>
+	</div>
+
+	<ul id="jquery-ui-selectable" class="ui-widget-content">
+    	<li class="ui-widget-content">項目 1</li>
+    	<li class="ui-widget-content">項目 2</li>
+    	<li class="ui-widget-content">項目 3</li>
+    	<li class="ui-widget-content">項目 4</li>
+    	<li class="ui-widget-content">項目 5</li>
+    	<li class="ui-widget-content">項目 6</li>
+    	<li class="ui-widget-content">項目 7</li>
+	</ul>
+
+	<div id="_slider"></div>
+-->
+	<input id="_spinner">
+<!--
+	<div id="tabs">
+    	<ul>
+        	<li><a href="#tabs-1">メニュー 1</a></li>
+        	<li><a href="#tabs-2">メニュー 2</a></li>
+        	<li><a href="#tabs-3">メニュー 3</a></li>
+    	</ul>
+    	<div id="tabs-1">
+        	<p>メニュー 1 の内容。</p>
+        	<p>この実装例の、jQuery UI の CSS テーマは、デフォルトのテーマを読み込んで使っている。もちろん他の CSS テーマにも対応しているので、色々試してみるといい。</p>
+    	</div>
+    	<div id="tabs-2">
+        	<p>メニュー 2 の内容。</p>
+    	</div>
+    	<div id="tabs-3">
+        	<p>メニュー 3 の内容。</p>
+    	</div>
+	</div>
+-->
+</body>
+</html>

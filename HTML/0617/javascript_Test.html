@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+	<script type="text/javascript" src="./jquery-1.11.1.min.js">
+		var col = 0;
+		
+		function func_jquery(){
+			$("#mRight").css("border", "3px solid red");
+		}
+
+		function cul_0() {
+    		result(getResultData()*10);
+		}
+		function cul_1() {
+    		var data = document.BUTTON.BUTTON1.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_2(){
+    		var data = document.BUTTON.BUTTON2.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_3(){
+    		var data = document.BUTTON.BUTTON3.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_4(){
+    		var data = document.BUTTON.BUTTON4.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_5(){
+    		var data = document.BUTTON.BUTTON5.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_6(){
+    		var data = document.BUTTON.BUTTON6.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_7(){
+    		var data = document.BUTTON.BUTTON7.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_8(){
+    		var data = document.BUTTON.BUTTON8.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function cul_9(){
+    		var data = document.BUTTON.BUTTON9.value;
+    		result(concatValue(getResultData(),data));
+		}
+		function result(valueData){
+    		var oElements = document.getElementsByName("result");
+    		document.BUTTON.result.value = valueData;
+		}
+		
+		function resultClear(){
+    		var oElements = document.getElementsByName("result");
+    		document.BUTTON.result.value = 0;
+		}
+
+		function getResultData(){
+			var oElements = document.getElementsByName("result");
+    		var resultData = document.BUTTON.result.value;
+    		if(resultData != 0)
+    			return resultData;
+    		else
+				return "";
+		}
+
+		function concatValue(value1,value2){
+   			var concatStr = String(value1).concat(String(value2));
+    		return concatStr;
+		}
+
+		function inPurasu(){
+		    var data = String(getResultData()) + "+";
+			result(data);
+		}
+		function inMainasu(){
+		    var data = String(getResultData()) + "-";
+			result(data);
+		}
+		function inKakeru(){
+		    var data = String(getResultData()) + "*";
+			result(data);
+		}
+		function inWaru(){
+		    var data = String(getResultData()) + "/";
+			result(data);
+		}
+
+		function culc(){
+    		alert(getResultData());
+			var keyNum = getResultData().match(/[\+\-\*\/]/g).length;
+			var result = getResultData();
+			alert(keyNum);
+			if (keyNum != -1) {
+				/*
+				var keyPoint = getResultData().match(/[\+\-\*\/]/g);
+				var num = getResultData().match(/\d+/g);
+    			alert("演算子の数:" + keyNum + " 数値の数:" + num.length);
+    			*/
+				for(i=0; i<keyNum; i++){
+					var keyPoint = result.match(/[\+\-\*\/]/g);
+					var num = result.match(/\d+/g);
+					
+					if(keyPoint[i] == '*'){
+						for(j=0;j<i;j++)result += num[j] + keyPoint[j];
+    
+						result += String(parseInt(num[i]) * parseInt(num[i+1]));
+    
+    					for(j=i+1;j<keyNum;j++)result += keyPoint[j] + num[j+1]; 
+    
+					}else if( keyPoint[i] == '/'){
+						result += String(parseInt(num[i]) * parseInt(num[i+1]));
+					}else{
+						/*result += num[i] + keyPoint[i];*/
+					}
+					
+
+				}
+				alert("計算結果:" + result);
+			}
+		}
+		
+		function viewLayer(){
+			var button = document.getElementById('viewButton1');
+    		if(button.value == "表示"){
+				document.getElementById('Contents').style.display = "block";
+    			button.value = "非表示";
+    		}else{
+				document.getElementById('Contents').style.display = "none";
+    			button.value = "表示";
+			}
+		}
+
+		function closewin() {
+			alert("OK");
+			window.opener = self;
+			window.close();
+		}
+
+		function openWin(){
+			var page = window.open('', '', 'width=500,height=400');
+    		page.document.open();
+			page.document.write("こんにちは<br>\n");
+			page.document.writeln("<a href='javascript:history.back();'>戻る<\/a>");
+    		page.document.write("あなたは、" + document.referrer + "  から来たね!!<br>");
+    		page.document.write("OS：" + window.navigator.platform + " でしょ。");
+			page.document.close();
+		}
+
+		function changeBGColor(){
+			var str = String(col);
+			var colStr = "#" + str.toString(16);
+    		alert(colStr);
+			/*
+			var obj = document.getElementById('mRight').style.backgroundColor = "\"" + colStr + "\"";
+    		col++;
+
+    		if(col < 16){
+    		}else{
+				setTimeout(changeBGColor(), 500);
+    		}
+			*/
+			
+		}
+		
+		function show(id) {
+			if (document.getElementById) {
+				var ele = document.getElementById(id);
+				ele.style.visibility = (ele.style.visibility == "visible") ? "hidden": "visible";
+			}
+		}
+
+	</script>
+
+
+<style type="text/css">
+/* フレーム */
+	body{
+    	width:100%;
+    	height:100%;
+    	padding:0;
+    	margin:0;
+	}
+
+	.mainFrame{
+    	width:100%;
+    	height:100%;
+	}
+	
+	.topFrame{
+    	background-color: #F5F5F5;
+    	height: 100px;
+    	left: 0;
+    	position: absolute;
+    	top: 0;
+    	width: 100%;
+	}
+
+	.middleFrame{
+		bottom: 0;
+    	position: absolute;
+    	top: 105px;
+    	width: 100%;
+	}
+ 
+	.middleLeft{
+    	border: 1px solid #0000FF;
+    	bottom: 0;
+    	left: 0;
+    	position: absolute;
+    	top: 5px;
+    	width: 300px;
+    	overflow:scroll;
+	}
+	.middleRight{
+    	border: 1px solid #008000;
+    	bottom: 0;
+    	left: 305px;
+    	position: absolute;
+    	right: 5px;
+    	top: 5px;
+	}
+/* 個別 */
+	/* Top */
+	.topImg{
+    	position:absolute;
+    	right:5px;
+    	top:5px;
+	}
+	.topTextFont{
+    	font-weight:bold;
+    	font-style:italic;
+    	font-size:50px;
+    	color:slateblue;
+    	position:absolute;
+    	top:15px;
+    	left:15px;
+    	margin:0;
+	}
+	/* middle left*/
+	.buttonRow1{
+		width:130px;
+    	height:40px;    
+		margin:0;
+    	position:absolute;
+    	top:100px;
+    	left:80px;
+	}
+	.buttonRow2{
+		width:130px;
+    	height:40px;    
+		margin:0;
+    	position:absolute;
+    	top:140px;
+    	left:80px;
+	}
+	.buttonRow3{
+		width:130px;
+    	height:90px;    
+		margin:0;
+    	position:absolute;
+    	top:180px;
+    	left:80px;
+	}
+	.button0{
+		width:40px;
+    	height:40px;    
+		margin:0;
+    	position:absolute;
+    	left:120;
+	}
+	.button1{
+		width:40px;
+    	height:40px;    
+		margin:0;
+    	position:relative;
+    	left:0;
+	}
+	.button2{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.button3{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.button4{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.button5{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.button6{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.button7{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.button8{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.button9{
+		width:40px;
+    	height:40px;    
+		margin:0;
+	}
+	.resultBox{
+		position:relative;
+    	top:0;
+    	left:0;
+    	right:10px;
+		width:98%;
+    	height:40px;    
+		margin:0;
+    	padding:0;
+	}
+	/* 計算記号 */
+	.Key{
+    	position:relative;
+    	top:20px;
+    	left:40px;
+    	width:100%;
+    	height:50px;
+    	margin:0;
+    	padding:0;
+	}
+	.eachKey{
+    	width:50px;
+    	height:50px;
+	}
+	.clr{
+		width:100px;    
+		height:50px;
+    	position:relative;
+    	top:200px;
+    	left:90px;;
+	}
+
+	.ikouru{
+		width:40px;    
+		height:40px;
+    	position:absolute;
+    	top:250px;
+    	left:200px;;
+	}
+
+	.viewButton{
+    	width:30%;
+		height:100px;
+    	font-weight:bold;
+    	font-size:50px;
+    	position:relative;
+    	top:100px;
+    	left:10px;
+	}
+	.viewLayer1{
+    	background-color:#00aaaa;
+    	display:none;
+    	position:absolute;
+    	top:250px;
+    	left:10px;
+    	right:10px;
+    	bottom:5px;
+	}
+
+	.WinClose{
+    	position:absolute;
+    	left:5px;
+    	bottom:30px;
+    	width:50%;
+	}
+	.WinOpen{
+    	position:absolute;
+    	left:5px;
+    	width:50%;
+    	bottom:50px;
+	}
+	.WinReload{
+		position:absolute;
+    	left:5px;
+    	width:50%;
+    	bottom:70px;
+	}
+	.OsWakeup{
+		position:absolute;
+    	left:5px;
+    	width:50%;
+    	bottom:90px;
+	}
+	
+	.tips {					/* tips というクラス名のスタイル */
+		position: absolute;		/* 表示位置の設定 */
+		visibility: hidden;		/* 非表示の設定 */
+		width: 100px;			/* 表示部の横幅 */
+		background-color: #ffeeff;	/* 背景色 */
+		border: 1px solid #0000ff;	/* 線の太さ、線の種類、枠線の色 */
+		font-size: 10pt;		/* フォントの大きさ */
+		font-family: Tahoma, Verdana;	/* フォントの指定 */
+		text-align: center;		/* 文字の位置 */
+		right:100px;
+    	z-index:2;
+	}
+	
+</style>
+</head>
+
+<body onload="func_jquery()">
+	<div class="mainFrame">
+		<div class="topFrame">
+			<span onmouseover="show('menu0');" onmouseout="show('menu0');">
+				<img src="yossy.jpg" width="90px" height="90px" class="topImg" title="ぃヨッシーーー!!!">
+				<span id="menu0" class="tips">
+					<p>緑ヨッシー</p><br>
+					<p>赤ヨッシー</p><br>
+					<p>青ヨッシー</p><br>
+					<p>白ヨッシー</p><br>
+				</span>
+			</span>
+
+			
+			<p class="topTextFont">HTML・CSS そして...JavaScript</p>
+		</div>
+
+		<form name="BUTTON" action="#">
+		<div class="middleFrame">
+			<div class="middleLeft">
+				<div class="buttonRow1">
+					<input type="button"   value="1" class="button1" name="BUTTON1" onclick="cul_1()">
+					<input type="button"   onclick="cul_2();" value="2" class="button2" name="BUTTON2">
+					<input type="button"   onclick="cul_3()" value="3" class="button3" name="BUTTON3">
+				</div>
+				<div class="buttonRow2">
+					<input type="button"   onclick="cul_4()" value="4" class="button4" name="BUTTON4">
+					<input type="button"   onclick="cul_5()" value="5" class="button5" name="BUTTON5">
+					<input type="button"   onclick="cul_6()" value="6" class="button6" name="BUTTON6">
+				</div>
+				<div class="buttonRow3">
+					<input type="button"   onclick="cul_7()" value="7" class="button7" name="BUTTON7">
+					<input type="button"   onclick="cul_8()" value="8" class="button8" name="BUTTON8">
+					<input type="button"   onclick="cul_9()" value="9" class="button9" name="BUTTON9">
+					<input type="button"   onclick="cul_0()" value="0" class="button0" name="zero">
+				</div>
+				
+				<div class="Key">
+					<input type="button"   onclick="inPurasu()" value="+" class="eachKey" name="+">
+					<input type="button"   onclick="inMainasu()" value="-" class="eachKey" name="-">
+					<input type="button"   onclick="inKakeru()" value="*" class="eachKey" name="*">
+					<input type="button"   onclick="inWaru()" value="/" class="eachKey" name="/">
+				</div>
+				<input type="button"   onclick="resultClear()" value="Clear" class="clr" name="Clear">
+				<input type="button"   onclick="culc()" value="=" class="ikouru" name="ikouru">
+				<input type="button"   onclick="closewin()" value="閉じる" class="WinClose">
+				<input type="button" value="NewPage" onclick="openWin();" class="WinOpen">
+				<input type="button" value="更新" onclick="window.location.reload();" class="WinReload">
+				<input type="button" value="起動" onclick="window.open('./osWakeup.html', '', 'width=700,height=400');;" class="OsWakeup">
+			</div>
+
+			<div class="middleRight" id="mRight">
+				<input type="text" value="0" class="resultBox" name="result">
+				
+				<input type="button" class="viewButton" value="表示" onclick="viewLayer()" id="viewButton1">
+				<div id="Contents" name="Layer1" class="viewLayer1">
+					
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
+	
+</body>
+
+</html>

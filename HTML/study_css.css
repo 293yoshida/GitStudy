@@ -1,0 +1,16 @@
+	
+	/* ÔF */
+	#red {
+		background-color: #FF0000;
+		
+	}
+	/* Â */
+	#blue{
+		background-color: #0000FF;
+	}
+	#list{
+		background-color: #FF0FFF;
+	}
+	.green{background-color: #00FF00;}
+	li.gray{background-color: #999999;}
+	.back{background-image: url(../sakana.jpg);}

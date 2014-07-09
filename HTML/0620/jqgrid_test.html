@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript">
+
+		$(document).ready(function(){
+			var mydata = [
+				{code:"001", fish:"マグロ", price:"1000", from:"青森"},
+				{code:"002", fish:"カツオ", price:"500" , from:"青森"},
+				{code:"003", fish:"タイ"  , price:"800" , from:"静岡"},
+				{code:"004", fish:"アジ"  , price:"100" , from:"神奈川"},
+				{code:"005", fish:"サンマ", price:"300" , from:"北海道"},
+				{code:"006", fish:"ウナギ", price:"1500", from:"四国"},
+			];
+			
+			$("#list").jqGrid({
+				data: mydata,
+				datatype: 'local',
+				caption : '魚一覧',	//表の題名
+				colNames: ['コード','名前','値段','原産地'], 
+				colModel: [
+					{index:'code' , name:'code'},
+					{index:'fish' , name:'fish'},	
+					{index:'price', name:'price'},
+					{index:'from' , name:'from'}
+				],
+				//sortname	: "code", 
+				//sortorder	: "ASC",
+
+				height		: 'auto',
+				grouping	: true,	//グルーピングを使用する
+				groupingView: {		//グルーピングの設定
+						groupField		 : ['fish'], //グループ化したい項目
+						groupText		 : ['<b>{0}</b>'], //グループ化した項目の表示名
+						groupOrder 		 : ['asc'], //昇順
+						groupSummary	 : [true]  //サマリータイプを使用する
+				}
+			});
+
+		});
+
+
+	</script>
+
+	<style type="text/css">
+
+	</style>
+</head>
+
+<body>
+	<table id="list"></table>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript">
+
+		
+		
+
+
+		$(document).ready(function(){
+
+
+    		$("#view_diarog_button").click(function(){
+				$("#dialog_frame").dialog('open');				
+			});
+
+			$("#dialog_frame").dialog({
+				autoOpen : false,
+				title: "Progress Bar!!",
+				show: 'explode',
+			});
+
+			jQuery( "#progress_spinner" ).spinner( {
+				spin: function( event, ui ) {
+					var progressValue = jQuery( '#progressBar' ).progressbar().value();
+    				var div = ui.value - progressValue;
+    				alert(progressValue);
+    
+            		jQuery( '#progressBar' ).progressbar("value", ui.value);
+        		},
+        		change: function( event, ui) {
+            		jQuery( '#progressBar' ).progressbar("value", ui.value);
+        		}
+			});
+
+			jQuery("#progressBar").progressbar({
+				value: 0,	
+			});
+
+		});
+	</script>
+
+<style type="text/css">
+	
+	.progressBarClass{
+		position:relative;
+    	top:0px;
+    	left:0;
+    	width:100%;
+    	margin:0;
+    	padding:0;
+	}
+	
+	.progressSpinner{
+		width:100%;
+    	height:50px;
+	}
+
+	.progressMargin{
+		width:100%;
+    	height:30px;
+	}
+
+</style>
+</head>
+
+<body>
+
+	<input type="button" value="ダイアログ" id="view_diarog_button">
+
+	<div id="dialog_frame">
+		<div id="progressBar" class="progressBarClass"></div>
+		
+		<input id="progress_spinner" class="progressSpinner" value="0">
+	</div>
+
+</body>
+</html>

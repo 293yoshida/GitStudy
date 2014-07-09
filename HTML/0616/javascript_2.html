@@ -1,0 +1,71 @@
+<html>
+
+<head>
+	<script type="text/javascript">
+	
+		function kansuu(){
+			alert("関数内だよ");
+		}
+		
+		function kakuninn(){
+			if(window.confirm("よろしいか？")){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		
+		function jstrlen(str,   len, i) {
+   			len = 0;
+   			str = escape(str);
+   			for (i = 0; i < str.length; i++, len++) {
+    		  if (str.charAt(i) == "%") {
+        		if (str.charAt(++i) == "u") {
+            		i += 3;
+            		len++;
+         		}
+        		i++;
+      		   }
+   			}
+   			return len;
+		}
+		
+		function replaceStr(str, old, new){
+			var newStr = str.replace(old, new);
+			alert(newStr);
+		}
+	
+	</script>
+</head>
+
+<body>
+	<form action="#">
+		<!--
+		<a href="http://www.newdaysys.co.jp" onclick="return kakuninn()">Newデイシス</a>
+		
+		<select onchange="alert('changed!!')">
+			<option>AAA</option>
+			<option>BBB</option>
+		</select>
+		-->
+		<script type="text/javascript">
+			<!--
+			xx = new Number(123);
+			yy = 123;
+			zz = xx + yy;
+			alert(typeof(xx));  <!-- object（数値オブジェクト）--
+			alert(typeof(yy));  <!-- number（数値）--
+			alert(typeof(zz));  <!-- number（演算結果は数値）--
+			-->
+			
+			str = "A:B:C:D:E:F:G";
+			for (i = 0; i < str.length; i++) {
+    			document.write("[" + str.split(":"); + "]");
+			}
+			
+		</script>
+		
+		
+	</form>
+</body>
+</html>

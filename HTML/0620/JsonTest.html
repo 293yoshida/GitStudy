@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript">
+		function jsonConvert(){
+	    	var contact = new Array(3);
+	    	contact[0] = new Object();
+	    	contact[1] = new Object();
+	    	contact[2] = new Object();
+    
+			contact[0].firstname = "Jesper";
+			contact[0].surname = "Aaberg";
+			contact[0].phone = ["555-0100", "555-0120"];
+
+			contact[1].firstname = "Jesper";
+			contact[1].surname = "Aaberg";
+			contact[1].phone = ["555-0100", "555-0123"];
+    
+			contact[2].firstname = "Jesper";
+			contact[2].surname = "Aaberg";
+			contact[2].phone = ["555-0100", "555-0124"];
+
+    
+			alert(contact[0].surname);
+    
+			var memberfilter = new Array();
+			memberfilter[0] = "surname";
+			memberfilter[1] = "phone";
+			var jsonText = JSON.stringify(contact, memberfilter, "\t");
+			document.write(jsonText);
+
+
+		}		
+	
+	</script>
+
+	<style type="text/css">
+		body,html{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #FFF;
+		}
+		.inputStyle1{
+    		position:absolute;
+    		top:10px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+		.inputStyle2{
+    		position:absolute;
+    		top:40px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle3{
+    		position:absolute;
+    		top:70px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle4{
+    		position:absolute;
+    		top:100px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle5{
+    		position:absolute;
+    		top:130px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle6{
+    		position:absolute;
+    		top:160px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+		.inputStyle7{
+    		position:absolute;
+    		top:190px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle8{
+    		position:absolute;
+    		top:220px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle9{
+    		position:absolute;
+    		top:220px;
+    		left:300px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.textStyle{
+			/* border:solid 1px green; */
+    		position:absolute;
+    		top:0;
+    		left:40;
+    		margin:0;
+    		padding:0;
+    		width:100%;
+    		height:500px;
+		}
+
+		.textStyleLeft{
+			/* border:solid 1px red; */
+    		position:absolute;
+    		top:0;
+    		left:0;
+    		/*width:700px;*/
+			width:100%;
+    		height:100%;
+		}
+		.textStyleRight{
+			/* border:solid 1px blue; */
+    		position:absolute;
+    		top:0;
+    		left:200px;
+    		right:5px;
+    		height:100%;
+		}
+
+		.bottunStyle{
+    		position:absolute;
+    		top:400px;
+    		left:20px;
+    		width:200px;
+		}
+
+		.resultTag{
+    		margin-top:0;
+		}
+
+		.resultColorRed{
+    		color:red;
+    		margin-left:30px;
+    		margin-top:0;
+    		display:inline;
+		}
+
+		.resultColorGreen{
+    		color:green;
+    		margin-left:30px;
+    		margin-top:0;
+    		display:inline;
+		}
+
+		.layoutJqgrid{
+    		position:absolute;
+    		left:500px;
+    		top:0px;
+		}
+
+	</style>
+
+<body>
+
+	<div id="#container">
+		<div class="textStyle">
+			<div class="textStyleLeft">
+				<input type="text" id="textBox1" value="1" checks="min:10;max:100" class="inputStyle1" >
+				<input type="text" id="textBox2" value="2" checks="alphaNumeric;betweenLength:5,5"  class="inputStyle2" >
+				<input type="text" id="textBox3" value="3" checks="alphaNumeric;betweenLength:5,10" class="inputStyle3" >
+				<input type="text" id="textBox4" value="4" checks="min:30;max:200;alphaNumeric" class="inputStyle4" >
+				<input type="text" id="textBox5" value="5" checks="h-char;h-digit;h-symbol;alphaNumeric-symbol;h-kana;hira;kana;char;length-min:2;length-max:4" class="inputStyle5" >
+				<input type="text" id="textBox6" value="6" checks="phone" class="inputStyle6" >
+				<input type="text" id="textBox7" value="7" checks="date" class="inputStyle7" >
+				<input type="text" id="textBox8" value="8" checks="mail;test" class="inputStyle8" >
+
+			</div>
+
+		</div>
+		<input type="button" value="確認" id="button_1" class="bottunStyle"  onclick="jsonConvert()">
+		<input type="button" id="button_2" value="データ取得" class="inputStyle9" >
+	</div>
+
+	<div id="resultDialog" title="確認結果"></div>
+	
+	<div class="layoutJqgrid">
+		<table id="list"></table>
+	</div>
+</body>
+</html>

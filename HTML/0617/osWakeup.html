@@ -1,0 +1,57 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>サンプル</title>
+<script type="text/javascript">
+	var img, max, count = 0;
+	var widthList = new Array();
+	
+	function getGraph() {
+		img = document.images;
+		var tmp = new Array();
+		for (var i = 0; i < img.length; i++) {
+			// 全ての画像の横幅を配列に格納
+			tmp[i] = widthList[i] = img.item(i).width;
+		}
+		max = tmp.sort(function(a, b) { return(b - a); })[0];
+
+		(widthList) && graph();
+	}		
+
+	function graph() {
+		for (var i = 0; i < widthList.length; i++) {
+            img.item(i).width = count;
+
+		    if (count >= widthList[i]) {
+			    img.item(i).width = widthList[i];
+			    img.item(i).title = widthList[i] + "px";
+		    }
+     	}
+
+	    if (count < max) setTimeout("graph();", 50);		// 画像を表示する速さ
+	    count += 10;						// 画像の増加量 (px)
+    }
+
+</script>
+</head>
+<body onload="getGraph();">
+	<table>
+		<tr>
+			<td><img src="./graph.gif" width="500" height="5" border="0" alt="graph"></td>
+		</tr>
+		<tr>
+			<td><img src="./graph.gif" width="300" height="5" border="0" alt="graph"></td>
+		</tr>
+		<tr>
+			<td><img src="./graph.gif" width="150" height="5" border="0" alt="graph"></td>
+		</tr>
+		<tr>
+			<td><img src="./graph.gif" width="400" height="5" border="0" alt="graph"></td>
+		</tr>
+		<tr>
+			<td><img src="./graph.gif" width="275" height="5" border="0" alt="graph"></td>
+		</tr>
+	</table>
+</body>
+</html>

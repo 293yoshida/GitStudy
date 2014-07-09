@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+
+	<link rel="stylesheet" href="themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="jquery.jqGrid-4.6.0/css/ui.jqgrid.css">
+	<script type="text/javascript" src="../jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="./jquery-ui-1.9.2.custom.min.js"></script>
+	<script type="text/javascript" src="jquery.jqGrid-4.6.0/js/jquery.jqGrid.min.js"></script>
+	<script type="text/javascript">
+		
+		var textNumID = 0;
+
+		/* 結果表示用DivタグにPタグを挿入
+		 * htmlTag : Divタグのidを指定
+         * addTagName : 表示したいテキスト
+		 * disp : cssのdisplay属性
+         * textCol : 文字の色
+		 */
+		function htmlAppend(htmlTag, addTagName, disp, textCol){
+    		$("#" + htmlTag).append( "<p  id='" + textNumID + "'>" + addTagName + "</p>" );
+    		$("#" + String(textNumID)).css("display", disp);
+    		$("#" + String(textNumID)).css("color", textCol);
+    		$("#" + String(textNumID)).css("margin-left", "30px");
+			textNumID++;
+		}
+		
+		/* タグのテキストを削除する */
+		function htmlClearResultView(htmlTag){
+			//alert(htmlTag);
+    		$("#" + htmlTag).empty();
+		}
+
+		$(document).ready(function(){
+			jQuery('#button_1').click(function(){
+				
+				var arrayInputTag = $("[type='text']");  //テキストボックスのDOMを取得
+				var arrayNum = $(arrayInputTag).length;  //要素数の取得
+
+				alert("OK");
+				alert(arrayNum);
+				//alert($(arrayInputTag[0]));
+				/*
+				jQuery.each($("[type='text']"), function() {
+					alert(this);
+				});*/
+
+				for(var j=0; j<arrayNum; j++){//>
+					//htmlClearResultView(String($(arrayInputTag[j]).attr('rstView')) ); //テキストボックスの確認結果を初期化
+    				htmlClearResultView($(arrayInputTag[j]).attr('rstView')); //テキストボックスの確認結果を初期化
+    				checksValue(String($(arrayInputTag[j]).attr('checks')), String($(arrayInputTag[j]).val()), String($(arrayInputTag[j]).attr('rstView')) );
+				}
+				
+			});
+		});
+
+		/* checks属性の確認用 
+		 * checksStr : checks属性の全文
+		 * textValue : テキストボックスのValue値
+		 * idName : 結果を出力したいタグのid値
+		*/
+		function checksValue(checksStr, textValue, idName){
+			
+			try{
+				var terms = checksStr.split(";");//text1Boxのcheck属性の分割[;]
+				/* checks内の要素分ループ */
+				for(var i=0; i<terms.length; i++){//>
+					var param = terms[i].split(":");
+    				switch(param[0]){
+						case "max":
+							if(parseInt( textValue ) <= parseInt(param[1])){//>
+       							htmlAppend( 
+    								idName, 
+    								(String(terms[i]) + " , " + textValue + " , Result=TRUE"), 
+    								"inline", "green" );
+							}else{
+								htmlAppend(
+    								idName, 
+    								(String(terms[i]) + " , " + textValue + " , Result=FALSE"), 
+    								"inline", "red");
+							}
+							break;
+
+						case "min":
+							if(parseInt( textValue ) >= parseInt(param[1])){
+    							htmlAppend( 
+    								idName, 
+									(String(terms[i]) + " , " + textValue + " , Result=TRUE"), 
+    								"inline", "green" );
+							}else{
+       							htmlAppend( 
+    								idName, 
+									(String(terms[i]) + " , " + textValue + " , Result=FALSE"), 
+    								"inline", "red" );
+ 							}
+							break;
+
+						case "alphaNumeric":
+							var reg = new RegExp("[^0-9A-Za-z]+");
+    						if(textValue.match(reg) == null){
+								htmlAppend( 
+    								idName, 
+    								(String(terms[i]) + " , " + textValue + " , Result=TRUE"), 
+    								"inline", "green" );
+							}else{
+       							htmlAppend( 
+    								idName, 
+    								(String(terms[i]) + " , " + textValue + " , Result=FALSE"), 
+    								"inline", "red" );
+							}
+							break;
+				
+						case "betweenLength":
+							var range = param[1].split(",");
+							var paramMin = range[0];
+							var paramMax = range[1];
+							if((parseInt(textValue) >= parseInt(paramMin)) && (parseInt(textValue) <= parseInt(paramMax))){//>
+       							htmlAppend( 
+    								idName, 
+    								(String(terms[i]) + " , " + textValue + " , Result=TRUE"), 
+    								"inline", "green" );
+							}else{
+       							htmlAppend( 
+    								idName, 
+    								(String(terms[i]) + " , " + textValue + " , Result=FALSE"), 
+    								"inline", "red" );
+							}		 					
+							break;
+
+						default:						
+							break;
+
+					}//end switch
+				}
+			}catch( e ){
+				alert(e);
+			}			
+		}
+
+	</script>
+
+	<style type="text/css">
+		body,html{
+			margin: 0;
+			padding: 0;
+			width: 100%;
+			height: 100%;
+			background-color: #FFF;
+		}
+		.inputStyle1{
+    		position:absolute;
+    		top:10px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+		.inputStyle2{
+    		position:absolute;
+    		top:40px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle3{
+    		position:absolute;
+    		top:70px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.inputStyle4{
+    		position:absolute;
+    		top:100px;
+    		left:0px;
+    		margin-bottom:20px;
+    		height:20px;
+		}
+
+		.textStyle{
+			/* border:solid 1px green; */
+    		position:absolute;
+    		top:40;
+    		left:40;
+    		margin:0;
+    		padding:0;
+    		width:100%;
+    		height:500px;
+		}
+
+		.textStyleLeft{
+			/* border:solid 1px red; */
+    		position:absolute;
+    		top:0;
+    		left:0;
+    		width:190px;
+    		height:100%;
+		}
+		.textStyleRight{
+			/* border:solid 1px blue; */
+    		position:absolute;
+    		top:0;
+    		left:200px;
+    		right:5px;
+    		height:100%;
+		}
+
+		.bottunStyle{
+    		position:absolute;
+    		top:200px;
+    		left:20px;
+    		width:200px;
+		}
+
+		.resultTag{
+    		margin-top:0;
+		}
+
+
+	</style>
+
+<body>
+
+	<div id="#container">
+		<div class="textStyle">
+			<div class="textStyleLeft">
+				<input type="text" id="textBox1" value="1" checks="min:10;max:100" class="inputStyle1" rstView="inputMsg1">
+				<input type="text" id="textBox2" value="2" checks="alphaNumeric;betweenLength:5,5"  class="inputStyle2" rstView="inputMsg2">
+				<input type="text" id="textBox3" value="3" checks="alphaNumeric;betweenLength:5,10" class="inputStyle3" rstView="inputMsg3">
+				<input type="text" id="textBox4" value="4" checks="min:30;max:200;alphaNumeric" class="inputStyle4" rstView="inputMsg4">
+			</div>
+			<div class="textStyleRight">
+				<div id="inputMsg1" class="inputStyle1 resultTag"></div>
+				<div id="inputMsg2" class="inputStyle2 resultTag"></div>
+				<div id="inputMsg3" class="inputStyle3 resultTag"></div>
+				<div id="inputMsg4" class="inputStyle4 resultTag"></div>
+			</div>
+		</div>
+		<input type="button" value="確認" id="button_1" class="bottunStyle">
+	</div>
+
+	<div id="resultDialog" title="確認結果"></div>
+
+	<table id="list"></table>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitio.dtd">
+
+<html>
+
+<head>
+	<meta content="text/html; charset=SJIS" http-equiv="content-Script-type" />
+	<meta content="ja" http-equiv="content-Language" />
+	<script type="text/javascript">
+		
+		function func() {
+  			alert("なぜだ");
+    		oElement = document.getElementById("ABC");
+    		alert(oElement);
+    		oElements = document.getElementsByTagName("img");
+    		alert(oElement);
+    		n = oElements.length; 
+    		alert(n);
+		}
+		
+		function addImg(){
+			var oImg = document.createElement('img');
+    		oImg.setAttribute("src", "yossy.jpg");
+    		
+    		var oDiv = document.getElementById("g_img");
+    		oDiv.appendChild(oImg);    
+		}
+
+		function cul() {
+ 			var xx = parseFloat(document.F1.T1.value);
+  			var yy = parseFloat(document.F1.T2.value);
+  			document.F1.T3.value = xx + yy;
+		}
+
+		function arere() {
+			alerm("ok");
+		}
+
+	</script>
+</head>
+
+<body>
+
+	<img id="ABC" src="yossy.jpg" width=20 height=20 alt="xx">
+	<img id="ABC" src="yossy.jpg" width=40 height=40 alt="xx">
+	<input type="button" value="OK" onclick="func()">
+	<input type="button" value="addImg" onclick="addImg()">
+
+	<div id="g_img"></div>
+
+	<form name="F1" action="#">
+		<input type="text" name="T1">
+		<input type="text" name="T2">
+		<input type="button" value="＝" onclick="cul()">
+		<input type="text" name="T3">
+		<input type="button"   value="1" class="button1" name="BUTTON1" onclick="func()">
+	</form>
+
+</body>
+
+</html>
